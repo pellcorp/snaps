@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Crystal Caves
+Exec=crystalcaves
+Comment=Shareware version of Crystal Caves
+Type=Application
+Icon=${SNAP}/crystalcaves.png
+Categories=Game;
+StartupNotify=true

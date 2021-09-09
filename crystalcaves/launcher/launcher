@@ -1,0 +1,3 @@
+#!/bin/bash
+
+dosbox -conf $SNAP/dosbox_distrib.conf
