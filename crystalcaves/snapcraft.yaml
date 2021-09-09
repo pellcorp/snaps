@@ -5,18 +5,15 @@ description: |
   Crystal Caves on DosBox
 confinement: strict
 grade: stable
-base: core20
+base: core18
 
 apps:
   crystalcaves:
     command: launcher
-    plugs:  [unity7, pulseaudio, opengl, network, x11]
-    extensions: [gnome-3-38]
+    plugs:  [pulseaudio, opengl, x11]
+    extensions: [gnome-3-28]
 
 parts:
-  launch:
-    plugin: dump
-    source: launcher
   download:
     plugin: dump
     source: https://archive.org/download/CrystalCaves/crystal.ZIP 
@@ -25,3 +22,20 @@ parts:
       '*.*' : game/
     stage-packages:
       - dosbox
+      - libslang2
+
+  launch:
+    plugin: dump
+    source: launcher
+
+  cleanup:
+    after: [download, launch]
+    plugin: nil
+    build-snaps:
+      - core18
+      - gnome-3-28-1804
+    override-prime: |
+      set -eux
+      for snap in "core18" "gnome-3-28-1804"; do
+        cd "/snap/$snap/current" && find . -type f,l -exec rm -r "$SNAPCRAFT_PRIME/{}" \;
+      done

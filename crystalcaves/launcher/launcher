@@ -1,3 +1,11 @@
 #!/bin/bash
 
-dosbox -conf $SNAP/dosbox_distrib.conf
+# because crystal caves writes to the game directory we need to
+# copy the game files out to the user data directory which is sad
+if [ ! -d $SNAP_USER_DATA/game ]; then
+	mkdir $SNAP_USER_DATA/game
+	cp $SNAP/dosbox_distrib.conf $SNAP_USER_DATA/dosbox.conf
+	cp $SNAP/game/* $SNAP_USER_DATA/game/
+fi
+
+dosbox $SNAP_USER_DATA/game/CC1.EXE -conf $SNAP_USER_DATA/dosbox.conf
