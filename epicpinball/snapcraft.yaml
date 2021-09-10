@@ -1,0 +1,74 @@
+name: epicpinball
+version: "1.2-shareware"
+summary: Epic Pinball shareware installer
+description: |
+  Epic Pinball is a collection of pinball games. This will install the shareware version with a single table. Buy the full version at GOG.com.
+confinement: strict
+grade: stable
+base: core18
+
+apps:
+  epicpinball:
+    command: launcher
+    plugs:  [unity7, pulseaudio, opengl, network, x11]
+    extensions: [gnome-3-28]
+
+parts:
+  launch:
+    plugin: dump
+    source: launcher
+    stage-packages:
+      - wget
+      - unzip
+      - yad
+      - perl-base
+    prime:
+      - -share
+      - -usr/share/doc
+      - -usr/share/lintian
+      - -usr/share/man
+
+  dosbox-staging:
+    source: https://github.com/dreamer/dosbox-staging.git
+    plugin: meson
+    meson-parameters:
+        - "-Dbuildtype=release"
+        - "-Duse_fluidsynth=false"
+        - "-Duse_mt32emu=false"
+        - "-Duse_pcap=false"
+        - "-Duse_slirp=false"
+        - "-Duse_sdl2_net=false"
+    build-packages:
+      - ccache
+      - build-essential
+      - libasound2-dev
+      - libpng-dev
+      - libsdl2-dev
+      - libsdl2-net-dev
+      - libopusfile-dev
+      - libfluidsynth-dev
+    stage-packages:
+      - libgomp1
+      - libopus0
+      - libopusfile0
+      - libsdl2-2.0-0
+      - libsdl2-net-2.0-0
+      - libsndio6.1
+      - libxss1
+    prime:
+      - -share
+      - -usr/share/doc
+      - -usr/share/lintian
+      - -usr/share/man
+
+  cleanup:
+    after: [launch, dosbox-staging]
+    plugin: nil
+    build-snaps:
+      - core18
+      - gtk-common-themes
+      - gnome-3-28-1804
+    override-prime: |
+      for snap in "core18" "gtk-common-themes" "gnome-3-28-1804"; do
+        cd "/snap/$snap/current" && find . -type f,l -exec rm -r "$SNAPCRAFT_PRIME/{} 2> /dev/null" \;
+      done
