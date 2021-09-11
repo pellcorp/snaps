@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Wolfenstein 3D
+Exec=wolf3d
+Comment=Shareware version of Wolfenstein 3D
+Type=Application
+Icon=${SNAP}/wolf3d.png
+Categories=Game;
+StartupNotify=true

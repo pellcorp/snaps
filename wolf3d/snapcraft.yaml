@@ -1,15 +1,15 @@
-name: crystalcaves
-version: "1.0-shareware"
-summary: Crystal Caves V1.0 Shareware
+name: wolf3d
+version: "1.4-shareware"
+summary: Wolfenstein 3D V1.4 Shareware
 description: |
-  Crystal Caves V1.0 Shareware Version
-  Buy the new HD version at https://www.gog.com/game/crystal_caves_hd
+  Wolfenstein 3D is a first-person shooter video game developed by id Software and published by Apogee Software. 
+  Buy the full game at https://www.gog.com/game/wolfenstein_3d_and_spear_of_destiny
 confinement: strict
 grade: stable
 base: core18
 
 apps:
-  crystalcaves:
+  wolf3d:
     command: launcher
     plugs:  [audio-playback, opengl, x11]
     extensions: [gnome-3-28]
@@ -21,12 +21,16 @@ parts:
 
   download:
     plugin: dump
-    source: https://archive.org/download/CrystalCaves/crystal.ZIP
+    source: https://image.dosgamesarchive.com/games/wolf3d-box.zip
     source-type: zip
     organize:
-      '*.*' : shareware/
+      'WOLF3D/*.WL1' : shareware/
+      'WOLF3D/WOLF3D.EXE' : shareware/
     prime:
-      - -*.diz
+      - -WOLF3D.BAT
+      - -*.txt
+      - -APOGEEPIX
+      - -WOLF3D
 
   dosbox-staging:
     source: https://github.com/dreamer/dosbox-staging.git
