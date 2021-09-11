@@ -2,7 +2,7 @@ name: crystalcaves
 version: "1.0-shareware"
 summary: Crystal Caves Shareware
 description: |
-  Crystal Caves on DosBox
+  Crystal Caves Shareware. Buy the full version at https://www.gog.com/game/crystal_caves_hd
 confinement: strict
 grade: stable
 base: core18
@@ -14,28 +14,57 @@ apps:
     extensions: [gnome-3-28]
 
 parts:
-  download:
-    plugin: dump
-    source: https://archive.org/download/CrystalCaves/crystal.ZIP 
-    source-type: zip
-    organize:
-      '*.*' : game/
-    stage-packages:
-      - dosbox
-      - libslang2
-
   launch:
     plugin: dump
     source: launcher
 
+  download:
+    plugin: dump
+    source: https://archive.org/download/CrystalCaves/crystal.ZIP
+    source-type: zip
+    organize:
+      '*.*' : shareware/
+
+  dosbox-staging:
+    source: https://github.com/dreamer/dosbox-staging.git
+    source-branch: release/0.77.x
+    source-type: git
+    plugin: meson
+    meson-parameters:
+      - "setup"
+      - "-Dprefix=/usr"
+      - "-Dbuildtype=release"
+      - "-Duse_fluidsynth=false"
+      - "-Duse_mt32emu=false"
+      - "-Duse_pcap=false"
+      - "-Duse_slirp=false"
+      - "-Duse_sdl2_net=false"
+      - "-Duse_png=false"
+    build-packages:
+      - ccache
+      - build-essential
+      - libasound2-dev
+      - libsdl2-dev
+      - libsdl2-net-dev
+      - libopusfile-dev
+    stage-packages:
+      - libsdl2-2.0-0
+      - libsdl2-net-2.0-0
+      - libopusfile0
+    prime:
+      - -share
+      - -usr/share/doc
+      - -usr/share/lintian
+      - -usr/share/man
   cleanup:
-    after: [download, launch]
+    after: [download, launch, dosbox-staging]
     plugin: nil
     build-snaps:
       - core18
+      - gtk-common-themes
       - gnome-3-28-1804
     override-prime: |
-      set -eux
-      for snap in "core18" "gnome-3-28-1804"; do
+      for snap in "core18" "gtk-common-themes" "gnome-3-28-1804"; do
         cd "/snap/$snap/current" && find . -type f,l -exec rm -r "$SNAPCRAFT_PRIME/{}" \;
       done
+

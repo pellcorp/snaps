@@ -2,10 +2,13 @@
 
 # because crystal caves writes to the game directory we need to
 # copy the game files out to the user data directory which is sad
-if [ ! -d $SNAP_USER_DATA/game ]; then
-	mkdir $SNAP_USER_DATA/game
-	cp $SNAP/dosbox_distrib.conf $SNAP_USER_DATA/dosbox.conf
-	cp $SNAP/game/* $SNAP_USER_DATA/game/
+
+if [ ! -d $SNAP_USER_DATA/shareware ]; then
+	mkdir $SNAP_USER_DATA/shareware
+	cp $SNAP/shareware/* $SNAP_USER_DATA/shareware/
 fi
 
-dosbox $SNAP_USER_DATA/game/CC1.EXE -conf $SNAP_USER_DATA/dosbox.conf
+cd $SNAP_USER_DATA/shareware
+cp $SNAP/dosbox_distrib.conf dosbox.conf
+
+dosbox -conf $SNAP_USER_DATA/dosbox.conf $SNAP_USER_DATA/shareware/CC1.EXE -exit
