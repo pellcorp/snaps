@@ -30,8 +30,8 @@ cp $SNAP/dosbox_distrib.conf .
 if [ -f $SNAP_USER_DATA/$GAMEDIR/dosbox.conf ];
 then
 	echo "Using custom configuration"
-	/usr/local/bin/dosbox -conf dosbox.conf
+	dosbox -conf dosbox.conf
 else
 	echo "Using default configuration"
-	/usr/local/bin/dosbox -conf dosbox_distrib.conf
+	dosbox -conf dosbox_distrib.conf
 fi
