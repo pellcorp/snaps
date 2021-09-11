@@ -3,7 +3,7 @@ version: "1.0-shareware"
 summary: Crystal Caves V1.0 Shareware
 description: |
   Crystal Caves V1.0 Shareware Version
-  Buy the full version at https://www.gog.com/game/crystal_caves_hd
+  Buy the new HD version at https://www.gog.com/game/crystal_caves_hd
 confinement: strict
 grade: stable
 base: core18
@@ -46,7 +46,6 @@ parts:
       - build-essential
       - libasound2-dev
       - libsdl2-dev
-      - libsdl2-net-dev
       - libopusfile-dev
     stage-packages:
       - libsdl2-2.0-0
@@ -58,7 +57,7 @@ parts:
       - -usr/share/lintian
       - -usr/share/man
   cleanup:
-    after: [download, launch, dosbox-staging]
+    after: [launch, dosbox-staging]
     plugin: nil
     build-snaps:
       - core18
@@ -68,4 +67,3 @@ parts:
       for snap in "core18" "gtk-common-themes" "gnome-3-28-1804"; do
         cd "/snap/$snap/current" && find . -type f,l -exec rm -r "$SNAPCRAFT_PRIME/{}" \;
       done
-

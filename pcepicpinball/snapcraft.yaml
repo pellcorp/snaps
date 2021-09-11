@@ -45,7 +45,6 @@ parts:
       - build-essential
       - libasound2-dev
       - libsdl2-dev
-      - libsdl2-net-dev
       - libopusfile-dev
     stage-packages:
       - libsdl2-2.0-0
@@ -57,7 +56,7 @@ parts:
       - -usr/share/lintian
       - -usr/share/man
   cleanup:
-    after: [launch, download, dosbox-staging]
+    after: [launch, dosbox-staging]
     plugin: nil
     build-snaps:
       - core18
