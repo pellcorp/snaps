@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Commander Keen Shareware
+Exec=keen
+Comment=Shareware version of Commander Keen
+Type=Application
+Icon=${SNAP}/keen.png
+Categories=Game;
+StartupNotify=true

@@ -7,4 +7,4 @@ if [ ! -d $SNAP_USER_DATA/shareware ]; then
 fi
 
 export SDL_AUDIODRIVER=pulse 
-dosbox -conf $SNAP_USER_DATA/dosbox.conf $SNAP_USER_DATA/shareware/CC1.EXE -exit
+dosbox -conf $SNAP_USER_DATA/dosbox.conf $SNAP_USER_DATA/shareware/KEEN1.EXE -exit
