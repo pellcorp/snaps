@@ -30,46 +30,43 @@ parts:
 
   dosbox-staging:
     source: https://github.com/dreamer/dosbox-staging.git
+    source-branch: release/0.77.x
+    source-type: git
     plugin: meson
     meson-parameters:
-        - "setup"
-        - "-Dprefix=/usr"
-        - "-Dbuildtype=release"
-        - "-Duse_fluidsynth=false"
-        - "-Duse_mt32emu=false"
-        - "-Duse_pcap=false"
-        - "-Duse_slirp=false"
-        - "-Duse_sdl2_net=false"
-        - "-Duse_png=false"
+      - "setup"
+      - "-Dprefix=/usr"
+      - "-Dbuildtype=release"
+      - "-Duse_fluidsynth=false"
+      - "-Duse_mt32emu=false"
+      - "-Duse_pcap=false"
+      - "-Duse_slirp=false"
+      - "-Duse_sdl2_net=false"
+      - "-Duse_png=false"
     build-packages:
       - ccache
       - build-essential
       - libasound2-dev
-      - libpng-dev
       - libsdl2-dev
       - libsdl2-net-dev
       - libopusfile-dev
     stage-packages:
-      - libgomp1
-      - libopus0
-      - libopusfile0
       - libsdl2-2.0-0
       - libsdl2-net-2.0-0
-      - libsndio6.1
-      - libxss1
+      - libopusfile0
     prime:
       - -share
       - -usr/share/doc
       - -usr/share/lintian
       - -usr/share/man
-  # cleanup:
-  #   after: [launch, dosbox-staging]
-  #   plugin: nil
-  #   build-snaps:
-  #     - core18
-  #     - gtk-common-themes
-  #     - gnome-3-28-1804
-  #   override-prime: |
-  #     for snap in "core18" "gtk-common-themes" "gnome-3-28-1804"; do
-  #       cd "/snap/$snap/current" && find . -type f,l -exec rm -r "$SNAPCRAFT_PRIME/{} 2> /dev/null" \;
-  #     done
+  cleanup:
+    after: [launch, dosbox-staging]
+    plugin: nil
+    build-snaps:
+      - core18
+      - gtk-common-themes
+      - gnome-3-28-1804
+    override-prime: |
+      for snap in "core18" "gtk-common-themes" "gnome-3-28-1804"; do
+        cd "/snap/$snap/current" && find . -type f,l -exec rm -r "$SNAPCRAFT_PRIME/{}" \;
+      done
