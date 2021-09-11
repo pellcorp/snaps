@@ -1,4 +1,4 @@
-name: epicpinball
+name: pcepicpinball
 version: "1.2-shareware"
 summary: Epic Pinball shareware installer
 description: |
@@ -8,25 +8,22 @@ grade: stable
 base: core18
 
 apps:
-  epicpinball:
+  pcepicpinball:
     command: launcher
-    plugs:  [unity7, pulseaudio, opengl, network, x11]
+    plugs:  [audio-playback, opengl, x11]
     extensions: [gnome-3-28]
 
 parts:
   launch:
     plugin: dump
     source: launcher
-    stage-packages:
-      - wget
-      - unzip
-      - yad
-      - perl-base
-    prime:
-      - -share
-      - -usr/share/doc
-      - -usr/share/lintian
-      - -usr/share/man
+  
+  download:
+    plugin: dump
+    source: https://archive.org/download/epic_pinball_11/epic_pinball.zip
+    source-type: zip
+    organize:
+      '*.*' : shareware/
 
   dosbox-staging:
     source: https://github.com/dreamer/dosbox-staging.git
@@ -60,7 +57,7 @@ parts:
       - -usr/share/lintian
       - -usr/share/man
   cleanup:
-    after: [launch, dosbox-staging]
+    after: [launch, download, dosbox-staging]
     plugin: nil
     build-snaps:
       - core18

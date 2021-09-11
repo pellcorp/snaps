@@ -2,13 +2,11 @@
 
 # because crystal caves writes to the game directory we need to
 # copy the game files out to the user data directory which is sad
-
 if [ ! -d $SNAP_USER_DATA/shareware ]; then
 	mkdir $SNAP_USER_DATA/shareware
 	cp $SNAP/shareware/* $SNAP_USER_DATA/shareware/
+	cp $SNAP/dosbox_distrib.conf $SNAP_USER_DATA/dosbox.conf
 fi
 
-cd $SNAP_USER_DATA/shareware
-cp $SNAP/dosbox_distrib.conf dosbox.conf
-
+export SDL_AUDIODRIVER=pulse 
 dosbox -conf $SNAP_USER_DATA/dosbox.conf $SNAP_USER_DATA/shareware/CC1.EXE -exit
