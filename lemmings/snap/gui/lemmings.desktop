@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Lemmings
+Exec=lemmings
+Comment=Lemmings Demo Version
+Type=Application
+Icon=${SNAP}/lemmings.png
+Categories=Game;
+StartupNotify=true
