@@ -1,14 +1,17 @@
-name: pcepicpinball
+name: pc-epicpinball
 version: "1.2-shareware"
-summary: Epic Pinball shareware installer
+summary: Epic Pinball Shareware
 description: |
-  Epic Pinball is a collection of pinball games. This will install the shareware version with a single table. Buy the full version at GOG.com.
+  Epic Pinball is a pinball video game played from a 2D top-down view within a scrollable window
+  This version differs from https://snapcraft.io/epicpinball because it does not require a network
+  connection to play the game, because the shareware is packaged in the snap.
+  Buy the full version at https://www.gog.com/game/epic_pinball_the_complete_collection
 confinement: strict
 grade: stable
 base: core18
 
 apps:
-  pcepicpinball:
+  pc-epicpinball:
     command: launcher
     plugs:  [audio-playback, opengl, x11]
     extensions: [gnome-3-28]
@@ -24,6 +27,11 @@ parts:
     source-type: zip
     organize:
       '*.*' : shareware/
+    prime:
+      - -*.DOC
+      - -SETUP.EXE
+      - -HELPME.EXE
+      - -*.DIZ
 
   dosbox-staging:
     source: https://github.com/dreamer/dosbox-staging.git
