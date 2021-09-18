@@ -6,4 +6,5 @@ if [ ! -d $SNAP_USER_DATA/shareware ]; then
 	cp $SNAP/dosbox_distrib.conf $SNAP_USER_DATA/dosbox.conf
 fi
 
-dosbox -conf $SNAP_USER_DATA/dosbox.conf $SNAP_USER_DATA/shareware/pinball.exe -exit
+export SDL_AUDIODRIVER=pulse 
+dosbox -conf $SNAP_USER_DATA/dosbox.conf $SNAP_USER_DATA/shareware/PINBALL.EXE -exit

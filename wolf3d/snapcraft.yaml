@@ -63,7 +63,7 @@ parts:
       - -usr/share/lintian
       - -usr/share/man
   cleanup:
-    after: [launch, dosbox-staging]
+    after: [launch, download, dosbox-staging]
     plugin: nil
     build-snaps:
       - core18

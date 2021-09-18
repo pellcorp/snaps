@@ -1,4 +1,4 @@
-name: pc-epicpinball
+name: epicpinballpc
 version: "1.2-shareware"
 summary: Epic Pinball Shareware
 description: |
@@ -11,7 +11,7 @@ grade: stable
 base: core18
 
 apps:
-  pc-epicpinball:
+  epicpinballpc:
     command: launcher
     plugs:  [audio-playback, opengl, x11]
     extensions: [gnome-3-28]
@@ -27,11 +27,6 @@ parts:
     source-type: zip
     organize:
       '*.*' : shareware/
-    prime:
-      - -*.DOC
-      - -SETUP.EXE
-      - -HELPME.EXE
-      - -*.DIZ
 
   dosbox-staging:
     source: https://github.com/dreamer/dosbox-staging.git
@@ -64,7 +59,7 @@ parts:
       - -usr/share/lintian
       - -usr/share/man
   cleanup:
-    after: [launch, dosbox-staging]
+    after: [launch, download, dosbox-staging]
     plugin: nil
     build-snaps:
       - core18

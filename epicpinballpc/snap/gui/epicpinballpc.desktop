@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Epic Pinball
-Exec=pc-epicpinball
+Exec=epicpinballpc
 Comment=Shareware version of Epic Pinball
 Type=Application
 Icon=${SNAP}/epicpinball.png
